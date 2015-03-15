@@ -52,16 +52,24 @@ class WebServicesController < ApplicationController
 
   def add_user_workout
   begin
+    #params[:string] = "111,333,444,555,666"
+    #params[:workout_name] = "eat"
+    #params[:workout_time] = "1 hour"
+
     if @user.present?
+      #puts "0000000000000000000000000000",@user
       #duration = params[:user][:workout][:end_time] - params[:user][:workout][:start_time]
       @workout = @user.workouts.new(:workout_name => params[:user][:workout][:workout_name],:time => params[:user][:workout][:workout_time])#, :exercise_rate => params[:user][:workout][:exercise_rate],:start_lat => params[:user][:workout][:start_lat], :start_lng => params[:user][:workout][:start_lng], :end_lat => params[:user][:workout][:end_lat], :end_lng => params[:user][:workout][:end_lng],, :rate => params[:user][:workout][:rate], :total => params[:user][:workout][:total],, :heart_rate => params[:user][:workout][:heart_rate]
       if @workout.save
-        arr = params[:string].split(",")
+      workouts = []
+      arr = params[:string].split(",")
         arr.each do |facebook_id|
-        workouts = []
+        user_workout = []
         user = User.where(:facebook_id => facebook_id).first
-        workout = user.workouts.where(:workout_name => params[:workout_name],:workout_time => params[:user][:workout][:workout_time])
-        workouts << {:user_id => user.id, :workout => workout}
+        puts "*************************",user.inspect
+        user_workout = user.workouts.all.where(:workout_name => params[:user][:workout][:workout_name],:workout_time => params[:user][:workout][:workout_time])
+        puts "*/*/*/*/*/*/*/*/*/*/*/*/*",user_workout.inspect
+        workouts << {:user_id => user.id, :workout => user_workout}
         end
         return render :json => {:success => "true", :message => "Workout added successsfully...", :workouts => workouts}
       else
@@ -77,7 +85,7 @@ class WebServicesController < ApplicationController
   end
 
   def check_session_create
-    params[:token] = "a0b1a417b7fe17a0f9c948a5c05f70751"
+    params[:token] = "456"
     puts "_________________________check_session_create_________________________"
     if params[:token].present?
       @user = User.find_by_session_token(params[:token])
