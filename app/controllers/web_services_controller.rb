@@ -65,7 +65,7 @@ class WebServicesController < ApplicationController
     if @user.present?
       #puts "0000000000000000000000000000",@user
       #duration = params[:user][:workout][:end_time] - params[:user][:workout][:start_time]
-      @workout = @user.workouts.new(:workout_name => params[:user][:workout][:workout_name],:time => params[:user][:workout][:workout_time])#, :exercise_rate => params[:user][:workout][:exercise_rate],:start_lat => params[:user][:workout][:start_lat], :start_lng => params[:user][:workout][:start_lng], :end_lat => params[:user][:workout][:end_lat], :end_lng => params[:user][:workout][:end_lng],, :rate => params[:user][:workout][:rate], :total => params[:user][:workout][:total],, :heart_rate => params[:user][:workout][:heart_rate]
+      @workout = @user.workouts.new(:workout_name => params[:user][:workout][:workout_name],:workout_time => params[:user][:workout][:workout_time])#, :exercise_rate => params[:user][:workout][:exercise_rate],:start_lat => params[:user][:workout][:start_lat], :start_lng => params[:user][:workout][:start_lng], :end_lat => params[:user][:workout][:end_lat], :end_lng => params[:user][:workout][:end_lng],, :rate => params[:user][:workout][:rate], :total => params[:user][:workout][:total],, :heart_rate => params[:user][:workout][:heart_rate]
       if @workout.save
       workouts = []
       arr = params[:string].split(",")
