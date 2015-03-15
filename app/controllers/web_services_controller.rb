@@ -25,18 +25,18 @@ class WebServicesController < ApplicationController
           #else
           #  flag = false
           #end
-          render :json => {:success => "true", :message => "signed in successfully", :user => {:id => @user.id, :email => @user.email, :token => @user.session_token, }}
+          render :json => {:success => "true", :message => "signed in successfully", :user => {:id => @user.id, :email => @user.email, :token => @user.session_token,:first_name => @user.first_name,:last_name => @user.last_name }}
           @user.update_attributes(:device_token => params[:user][:device_token])
         else
           random_str = SecureRandom.hex
-          @user = User.new(:email => params[:user][:email], :password => params[:user][:password], :facebook_id => params[:facebook_id], :device_token => params[:user][:device_token], :session_token => random_str)
+          @user = User.new(:email => params[:user][:email], :password => params[:user][:password],:first_name => params[:user][:first_name],:last_name => params[:user][:last_name], :facebook_id => params[:facebook_id], :device_token => params[:user][:device_token], :session_token => random_str)
           if @user.save
             #if @user.sign_in_count == 0
             #  flag = true
             #else
             #  flag = false
             #end
-            render :json => {:success => "true", :message => "user has been successfully created", :user => {:id => @user.id, :email => @user.email, :token => @user.session_token, }}
+            render :json => {:success => "true", :message => "user has been successfully created", :user => {:id => @user.id, :email => @user.email,:first_name => @user.first_name,:last_name => @user.last_name, :token => @user.session_token, }}
           else
             render :json => {:success => "false", :message => "cant create user"}
           end
