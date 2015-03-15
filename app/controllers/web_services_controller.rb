@@ -50,6 +50,53 @@ class WebServicesController < ApplicationController
   end
   end
 
+  def add_user_workout
+  begin
+    if @user.present?
+      #duration = params[:user][:workout][:end_time] - params[:user][:workout][:start_time]
+      @workout = @user.workouts.new(:workout_name => params[:user][:workout][:start_time],:start_time => params[:user][:workout][:start_time], :end_time => params[:user][:workout][:end_time], )#, :exercise_rate => params[:user][:workout][:exercise_rate],:start_lat => params[:user][:workout][:start_lat], :start_lng => params[:user][:workout][:start_lng], :end_lat => params[:user][:workout][:end_lat], :end_lng => params[:user][:workout][:end_lng],, :rate => params[:user][:workout][:rate], :total => params[:user][:workout][:total],, :heart_rate => params[:user][:workout][:heart_rate]
+      if @workout.save
+        #workouts = []
+        #params[:arr].each do |arr|
+        #
+        #  workouts << {:}
+        #end
+        return render :json => {:success => "true", :message => "Workout added successsfully..."}
+      else
+        return render :json => {:success => "false", :message => 'Error, While creating workouts. Please try again...'}
+      end
+    else
+      render :json => {:success => "false", :message => "User does not exist..."}
+    end
+  rescue Exception => e
+    return render :json => {:success => "false", :message => "#{e.message}"}
+  end
+
+  end
+
+  def check_session_create
+    params[:token] = "a0b1a417b7fe17a0f9c948a5c05f70751"
+    puts "_________________________check_session_create_________________________"
+    if params[:token].present?
+      @user = User.find_by_session_token(params[:token])
+      if @user.present?
+        puts "...........user exists.............."
+        return true
+      else
+        puts "...........user does not exist..........."
+        render :json => {:success => "false", :errors => " authentication failed(User Does,nt Exist)..."}
+      end
+    else
+      puts "...........params token not present..........."
+      render :json => {:success => "false", :errors => "authentication failed(Token Does,nt Exixt)..."}
+    end
+  end
+
+
+  #------------------------------------------------------------------------------------------
+  #Below Functions are used for testing
+  #------------------------------------------------------------------------------------------
+
 
   def test_sign_up_facebook
     aaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -93,26 +140,6 @@ class WebServicesController < ApplicationController
       return render :json => {:success => "false", :message => "#{e.message}"}
     end
 
-  end
-
-
-
-  def check_session_create
-    #params[:token] = "a0b1a417b7fe17a0f9c948a5c05f70751"
-    puts "_________________________check_session_create_________________________"
-    if params[:token].present?
-      @user = User.find_by_session_token(params[:token])
-      if @user.present?
-        puts "...........user exists.............."
-        return true
-      else
-        puts "...........user does not exist..........."
-        render :json => {:success => "false", :errors => " authentication failed(User Does,nt Exist)..."}
-      end
-    else
-      puts "...........params token not present..........."
-      render :json => {:success => "false", :errors => "authentication failed(Token Does,nt Exixt)..."}
-    end
   end
 
 

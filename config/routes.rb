@@ -12,7 +12,13 @@ Rails.application.routes.draw do
    resources :web_services do
      collection do
      post :sign_up_facebook
+     post :add_user_workout
+
+
+     #BELOW ROUTES ARE USED FOR TESTING PURPOSE ONLY
      get :test_sign_up_facebook
+     get :add_user_workout
+
 
    end
    end
