@@ -85,7 +85,7 @@ class WebServicesController < ApplicationController
   end
 
   def check_session_create
-    params[:token] = "456"
+    #params[:token] = "456"
     puts "_________________________check_session_create_________________________"
     if params[:token].present?
       @user = User.find_by_session_token(params[:token])
