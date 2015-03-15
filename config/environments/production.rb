@@ -31,7 +31,6 @@ Rails.application.configure do
 
   # Generate digests for assets URLs.
   config.assets.digest = true
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # `config.assets.precompile` has moved to config/initializers/assets.rb
 
@@ -79,5 +78,8 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Do not dump schema after migrations.
+
   config.active_record.dump_schema_after_migration = false
+  config.action_mailer.default_url_options = { :host => 'fbapplication.herokuapp.com' }
+
 end
