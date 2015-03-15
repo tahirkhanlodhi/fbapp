@@ -51,7 +51,8 @@ class WebServicesController < ApplicationController
   end
 
 
-  def facebook_sign_up
+  def test_sign_up_facebook
+    aaaaaaaaaaaaaaaaaaaaaaaaaaa
     puts "+++++++++++++++++++facebook_sign_up+++++++++++++++++++"
     puts "000000000000000000000", params.inspect
     puts "111111111111111111111", params[:user][:device_token]

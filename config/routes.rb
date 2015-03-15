@@ -12,6 +12,8 @@ Rails.application.routes.draw do
    resources :web_services do
      collection do
      post :sign_up_facebook
+     get :test_sign_up_facebook
+
    end
    end
 
