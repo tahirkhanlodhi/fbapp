@@ -14,6 +14,12 @@ class WebServicesController < ApplicationController
   def sign_up_facebook
     puts "+++++++++++++++++++facebook_sign_up+++++++++++++++++++"
     puts "000000000000000000000", params.inspect
+    puts "111111111111111111111", params[:user]
+    puts "111111111111111111111", params[:user][:email]
+    puts "111111111111111111111", params[:user][:first_name]
+    puts "111111111111111111111", params[:user][:last_name]
+    puts "111111111111111111111", params[:user][:username]
+    puts "111111111111111111111", params[:facebook_id]
     puts "111111111111111111111", params[:user][:device_token]
   begin
     if request.format(request) == '*/*'
@@ -29,7 +35,7 @@ class WebServicesController < ApplicationController
           @user.update_attributes(:device_token => params[:user][:device_token])
         else
           random_str = SecureRandom.hex
-          @user = User.new(:email => params[:user][:email], :password => params[:user][:password],:first_name => params[:user][:first_name],:last_name => params[:user][:last_name], :facebook_id => params[:facebook_id], :device_token => params[:user][:device_token], :session_token => random_str)
+          @user = User.new(:email => params[:user][:email], :password => "1234567890",:first_name => params[:user][:first_name],:last_name => params[:user][:last_name], :facebook_id => params[:facebook_id], :device_token => params[:user][:device_token], :session_token => random_str)
           if @user.save
             #if @user.sign_in_count == 0
             #  flag = true
