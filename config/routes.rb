@@ -11,7 +11,7 @@ Rails.application.routes.draw do
    root 'home#index'
    resources :web_services do
      collection do
-     get :sign_up_facebook
+     post :sign_up_facebook
    end
    end
 
