@@ -54,14 +54,16 @@ class WebServicesController < ApplicationController
   begin
     if @user.present?
       #duration = params[:user][:workout][:end_time] - params[:user][:workout][:start_time]
-      @workout = @user.workouts.new(:workout_name => params[:user][:workout][:start_time],:start_time => params[:user][:workout][:start_time], :end_time => params[:user][:workout][:end_time], )#, :exercise_rate => params[:user][:workout][:exercise_rate],:start_lat => params[:user][:workout][:start_lat], :start_lng => params[:user][:workout][:start_lng], :end_lat => params[:user][:workout][:end_lat], :end_lng => params[:user][:workout][:end_lng],, :rate => params[:user][:workout][:rate], :total => params[:user][:workout][:total],, :heart_rate => params[:user][:workout][:heart_rate]
+      @workout = @user.workouts.new(:workout_name => params[:user][:workout][:workout_name],:time => params[:user][:workout][:workout_time])#, :exercise_rate => params[:user][:workout][:exercise_rate],:start_lat => params[:user][:workout][:start_lat], :start_lng => params[:user][:workout][:start_lng], :end_lat => params[:user][:workout][:end_lat], :end_lng => params[:user][:workout][:end_lng],, :rate => params[:user][:workout][:rate], :total => params[:user][:workout][:total],, :heart_rate => params[:user][:workout][:heart_rate]
       if @workout.save
-        #workouts = []
-        #params[:arr].each do |arr|
-        #
-        #  workouts << {:}
-        #end
-        return render :json => {:success => "true", :message => "Workout added successsfully..."}
+        arr = params[:string].split(",")
+        arr.each do |facebook_id|
+        workouts = []
+        user = User.where(:facebook_id => facebook_id).first
+        workout = user.workouts.where(:workout_name => params[:workout_name],:workout_time => params[:user][:workout][:workout_time])
+        workouts << {:user_id => user.id, :workout => workout}
+        end
+        return render :json => {:success => "true", :message => "Workout added successsfully...", :workouts => workouts}
       else
         return render :json => {:success => "false", :message => 'Error, While creating workouts. Please try again...'}
       end
