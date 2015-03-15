@@ -29,8 +29,8 @@ Rails.application.routes.draw do
     #get "admin", :to => "devise/sessions#new"
     #get "sign_in", :to => "users/sessions#new"
     get 'sign_in', :to => 'users/sessions#new', :as => :new_session
-    get "sign_out", :to => "users/sessions#destroy"
-    #post "sign_out", :to => "users/sessions#destroy"
+    #get "sign_out", :to => "users/sessions#destroy"
+    post "sign_out", :to => "users/sessions#destroy"
     get "sign_up", :to => "users/registrations#new"
     patch "/users/update_user", :to => "users/registrations#update_user"
     #get "login", :to => "devise/sessions#login"
