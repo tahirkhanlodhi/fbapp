@@ -75,7 +75,7 @@ class WebServicesController < ApplicationController
         puts "*************************",user.inspect
         user_workout = user.workouts.all.where(:workout_name => params[:user][:workout][:workout_name],:workout_time => params[:user][:workout][:workout_time])
         puts "*/*/*/*/*/*/*/*/*/*/*/*/*",user_workout.inspect
-        workouts << {:user_id => user.id,:first_name => user.first_name, :last_name => user.last_name,:facebook_id => @user.facebook_id } if user_workout.present?
+        workouts << {:user_id => user.id,:first_name => user.first_name, :last_name => user.last_name,:facebook_id => user.facebook_id } if user_workout.present?
         end
         return render :json => {:success => "true", :message => "Workout added successsfully...", :workouts => workouts}
       else
@@ -158,5 +158,5 @@ class WebServicesController < ApplicationController
 
   end
 
-
+#tzazhzizrzkzhzaznzlzozdzhzizHzyzpzezrz*z0z9z0z9z0z9z,ztzazhzizrz_zlzozdzhziz0z9z@zyzazhzozoz.zczozmz,zHzyzpzezrz*z0z9z0z9z0z9z
 end
